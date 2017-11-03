@@ -76,3 +76,15 @@ pomExtra := (
     </developer>
   </developers>
 )
+
+credentials += Credentials(
+  Path.userHome / ".lightbend" / "commercial.credentials")
+resolvers += Resolver.url(
+  "lightbend-commercial-releases",
+  new URL("http://repo.lightbend.com/commercial-releases/"))(
+  Resolver.ivyStylePatterns)
+addCompilerPlugin(
+  "com.lightbend" %% "scala-fortify" % "2ed5b572"
+    classifier "assembly"
+    cross CrossVersion.patch)
+scalacOptions += s"-P:fortify:build=scalaj-http"
